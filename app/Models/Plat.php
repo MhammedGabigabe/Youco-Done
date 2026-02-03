@@ -6,5 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Plat extends Model
 {
-    //
+    protected $fillable = [
+        'nom',
+        'prix',
+        'menu_id',
+        'image'
+    ];
+
+    public function menu()
+    {
+        return $this->belongsTo(Menu::class);
+    }
+
 }
