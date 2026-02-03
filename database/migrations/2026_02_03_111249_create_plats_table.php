@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nom');
             $table->decimal('prix', 8, 2);
+            $table->string('image');
             $table->foreignId('menu_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
