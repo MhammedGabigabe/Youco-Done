@@ -19,7 +19,7 @@ class PlatFactory extends Factory
     {
         return [
             'nom' => $this->faker->words(2, true),
-            'prix' => $this->faker->randomFloat(2, 20, 120),
+            'prix' => $this->faker->numberBetween(45,250),
             'image' => 'plats/default.jpg',
             'menu_id' => Menu::factory(),
         ];
