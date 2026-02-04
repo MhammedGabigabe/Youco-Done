@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('plats', function (Blueprint $table) {
             $table->id();
             $table->string('nom');
-            $table->decimal('prix', 8, 2);
+            $table->integer('prix');
             $table->string('image');
             $table->foreignId('menu_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
