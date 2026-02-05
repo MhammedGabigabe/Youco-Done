@@ -7,6 +7,14 @@ Route::get('/', function () {
     return view('home');
 });
 
+Route::fallback(function(){
+    return redirect('/');
+});
+
+Route::get('/accueil', function () {
+    return view('home');
+})->middleware(['auth', 'verified'])->name('accueil');
+
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
