@@ -12,6 +12,7 @@ use App\Models\TypeCuisine;
 use App\Models\Jour;
 use App\Models\Plat;
 use App\Models\Photo;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -22,6 +23,10 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        Role::firstOrCreate(['name'=> 'admin']);
+        Role::firstOrCreate(['name'=> 'client']);
+        Role::firstOrCreate(['name'=> 'restaurateur']);
+
         $users = User::factory(10)->create();
 
         // User::factory()->create([
