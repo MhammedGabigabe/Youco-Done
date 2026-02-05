@@ -49,7 +49,7 @@
             <p class="text-xl font-medium max-w-md">
                 Gérez vos réservations et vos expériences culinaires en toute simplicité.
             </p>
-            <p class="text-sm opacity-70">© 2024 Youco'Done</p>
+            <p class="text-sm opacity-70">© 2026 Youco'Done</p>
         </div>
     </div>
 
