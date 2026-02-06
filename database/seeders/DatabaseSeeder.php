@@ -27,7 +27,7 @@ class DatabaseSeeder extends Seeder
         Role::firstOrCreate(['name'=> 'client']);
         Role::firstOrCreate(['name'=> 'restaurateur']);
 
-        $users = User::factory(10)->create();
+        $users = User::factory(5)->create();
 
         // User::factory()->create([
         //     'name' => 'Test User',
