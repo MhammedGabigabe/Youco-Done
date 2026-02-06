@@ -1,15 +1,16 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\RestaurantController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [RestaurantController::class, 'index']);
 
 Route::fallback(function(){
     return redirect('/');
 });
+
+Route::get('/detailsRestaurant/{id}', [RestaurantController::class, 'show']);
 
 Route::get('/accueil', function () {
     return view('home');

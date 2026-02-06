@@ -61,17 +61,44 @@
                     <h1 class="text-xl font-black tracking-tight text-[#1c110d] dark:text-white">Youco'Done</h1>
                 </div>
                 <div class="flex items-center gap-4">
-                    <a
-                        href="{{ route('login') }}"
-                        class="flex min-w-[84px] cursor-pointer items-center justify-center rounded-lg h-10 px-4 text-[#1c110d] dark:text-white text-sm font-bold hover:bg-[#f4eae7] dark:hover:bg-[#3d2a24] transition-colors">
-                        Connexion
-                    </a>
-                    <a
-                        href="{{ route('register') }}"
-                        class="flex min-w-[100px] cursor-pointer items-center justify-center rounded-lg h-10 px-5 bg-primary text-white text-sm font-bold shadow-sm hover:opacity-90 transition-opacity">
-                        Inscription
-                    </a>
+                    @auth
+                        <a
+                            href="{{ route('profile.edit') }}"
+                            class="flex min-w-[140px] items-center justify-center rounded-lg h-10 px-4
+                                text-[#1c110d] dark:text-white text-sm font-bold
+                                hover:bg-[#f4eae7] dark:hover:bg-[#3d2a24] transition-colors">
+                            Modifier profil
+                        </a>
+
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button
+                                type="submit"
+                                class="flex min-w-[120px] items-center justify-center rounded-lg h-10 px-5
+                                    bg-primary text-white text-sm font-bold
+                                    hover:opacity-90 transition-opacity">
+                                Déconnexion
+                            </button>
+                        </form>
+                    @else
+                        <a
+                            href="{{ route('login') }}"
+                            class="flex min-w-[84px] items-center justify-center rounded-lg h-10 px-4
+                                text-[#1c110d] dark:text-white text-sm font-bold
+                                hover:bg-[#f4eae7] dark:hover:bg-[#3d2a24] transition-colors">
+                            Connexion
+                        </a>
+
+                        <a
+                            href="{{ route('register') }}"
+                            class="flex min-w-[100px] items-center justify-center rounded-lg h-10 px-5
+                                bg-primary text-white text-sm font-bold
+                                shadow-sm hover:opacity-90 transition-opacity">
+                            Inscription
+                        </a>
+                    @endauth
                 </div>
+
             </div>
         </header>
         <main class="flex-1">
@@ -121,21 +148,17 @@
                         <p class="text-[#9c5e49] text-sm font-normal">Basé sur vos recherches récentes et votre
                             localisation</p>
                     </div>
-                    <button class="text-primary text-sm font-bold hover:underline flex items-center gap-1">
-                        Tout voir <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </button>
                 </div>
             </section>
             <section class="w-full px-6 lg:px-10 pb-20">
+
                 <div class="mx-auto max-w-[1280px]">
+                   
                     <div class="grid grid-cols-1 gap-8 md:grid-cols-2">
+                         @foreach($restaurants as $restaurant)
                         <div
                             class="group flex flex-col gap-4 rounded-xl bg-white dark:bg-[#2d1b15] p-4 shadow-sm transition-all hover:shadow-lg hover:-translate-y-1">
                             <div class="relative w-full aspect-[21/9] overflow-hidden rounded-lg">
-                                <div
-                                    class="absolute top-4 left-4 z-10 rounded-full bg-white/95 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-primary shadow-sm">
-                                    Français Moderne
-                                </div>
                                 <div class="h-full w-full bg-center bg-cover transition-transform duration-500 group-hover:scale-105"
                                     style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuC5dmQPSW1MYNwT4G9IUvu5v6Ud8Ggclw2zrzaiiu07f2vPDpaBD9wtVIaf1f19JQrA9BHzCcP_Sz5DdKtp44A9UoUCvuh8QRhblOVZkW4aZU_cdrHyY0SF-eGOEo7rOiujjlOQkGVBqjgTMNYMrQIX4tilJ0Er5D1vWio7yVg3xfYBVP9KJlJHOtsN2PoIykK5fQYlvTArLulqLNrlUnfHOA3EfOdX7GNWdFVcuTICNVu0WSx27Vjcljh1RRdTmC2Clfx8FDHH758");'>
                                 </div>
@@ -145,74 +168,22 @@
                                     <h3 class="text-xl font-bold text-[#1c110d] dark:text-white">The Golden Whisk</h3>
                                 </div>
                                 <p class="text-[#9c5e49] text-sm flex items-center gap-1 mb-4">
-                                    <span class="material-symbols-outlined text-sm">location_on</span> Centre-ville
+                                    <span class="material-symbols-outlined text-sm">location_on</span> {{$restaurant->localisation}}
                                 </p>
-                                <button
-                                    class="w-full py-3 text-sm font-bold text-primary border border-primary/20 bg-primary/5 rounded-lg hover:bg-primary hover:text-white transition-all">
-                                    Voir les détails
-                                </button>
+                                
+                                    <button onclick="window.location.href='detailsRestaurant/{{$restaurant->id}}'"
+                                        class="w-full py-3 text-sm font-bold text-primary border border-primary/20 bg-primary/5 rounded-lg hover:bg-primary hover:text-white transition-all">
+                                        Voir les détails
+                                    </button>
+                                
                             </div>
                         </div>
+                        @endforeach
                     </div>
+                    
                 </div>
             </section>
         </main>
-        <footer
-            class="w-full border-t border-[#f4eae7] dark:border-[#3d2a24] bg-white dark:bg-background-dark py-12 px-6 lg:px-10">
-            <div class="mx-auto max-w-[1280px] grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                <div class="flex flex-col gap-4">
-                    <div class="flex items-center gap-2 text-primary">
-                        <div class="size-6">
-                            <svg fill="currentColor" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
-                                <path
-                                    d="M36.7273 44C33.9891 44 31.6043 39.8386 30.3636 33.69C29.123 39.8386 26.7382 44 24 44C21.2618 44 18.877 39.8386 17.6364 33.69C16.3957 39.8386 14.0109 44 11.2727 44C7.25611 44 4 35.0457 4 24C4 12.9543 7.25611 4 11.2727 4C14.0109 4 16.3957 8.16144 17.6364 14.31C18.877 8.16144 21.2618 4 24 4C26.7382 4 29.123 8.16144 30.3636 14.31C31.6043 8.16144 33.9891 4 36.7273 4C40.7439 4 44 12.9543 44 24C44 35.0457 40.7439 44 36.7273 44Z">
-                                </path>
-                            </svg>
-                        </div>
-                        <h2 class="text-lg font-bold tracking-tight text-[#1c110d] dark:text-white">Youco'Done</h2>
-                    </div>
-                    <p class="text-sm text-[#9c5e49]">La façon la plus simple de découvrir et réserver des tables dans
-                        vos lieux favoris.</p>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <h4 class="font-bold text-[#1c110d] dark:text-white">Découverte</h4>
-                    <ul class="flex flex-col gap-2 text-sm text-[#9c5e49]">
-                        <li><a class="hover:text-primary transition-colors" href="#">Restaurants à proximité</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="#">Les mieux notés</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="#">Guide culinaire</a></li>
-                    </ul>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <h4 class="font-bold text-[#1c110d] dark:text-white">Pour les Professionnels</h4>
-                    <ul class="flex flex-col gap-2 text-sm text-[#9c5e49]">
-                        <li><a class="hover:text-primary transition-colors" href="#">Inscrivez votre restaurant</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="#">Outils de gestion</a></li>
-                        <li><a class="hover:text-primary transition-colors" href="#">Analyses</a></li>
-                    </ul>
-                </div>
-                <div class="flex flex-col gap-4">
-                    <h4 class="font-bold text-[#1c110d] dark:text-white">Réseaux</h4>
-                    <div class="flex gap-4">
-                        <button
-                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f4eae7] dark:bg-[#3d2a24] text-primary hover:bg-primary hover:text-white transition-all">
-                            <span class="material-symbols-outlined">social_leaderboard</span>
-                        </button>
-                        <button
-                            class="flex h-10 w-10 items-center justify-center rounded-lg bg-[#f4eae7] dark:bg-[#3d2a24] text-primary hover:bg-primary hover:text-white transition-all">
-                            <span class="material-symbols-outlined">alternate_email</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-            <div
-                class="mx-auto max-w-[1280px] mt-12 pt-8 border-t border-[#f4eae7] dark:border-[#3d2a24] flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-xs text-[#9c5e49]">© 2024 Youco'Done. Tous droits réservés.</p>
-                <div class="flex gap-6 text-xs text-[#9c5e49]">
-                    <a class="hover:underline" href="#">Politique de confidentialité</a>
-                    <a class="hover:underline" href="#">Conditions d'utilisation</a>
-                </div>
-            </div>
-        </footer>
     </div>
 
 </body>
